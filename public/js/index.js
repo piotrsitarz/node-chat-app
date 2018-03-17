@@ -9,10 +9,10 @@ socket.on('connect', function() {
     //     to: 'noob team'
     // })
 
-    socket.emit('createMessage', {
-        from: 'Mistrzunio',
-        text: 'Ale piekny jest ten swiat:)'
-    })
+    // socket.emit('createMessage', {
+    //     from: 'Mistrzunio',
+    //     text: 'Ale piekny jest ten swiat:)'
+    // })
 
 });
 
