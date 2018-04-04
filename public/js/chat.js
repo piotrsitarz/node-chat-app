@@ -9,22 +9,28 @@ function scrollToBottom() {
   let scrollHeight = messages.prop('scrollHeight');
   let newMessageHeight = newMessage.innerHeight();
   let lastMessageHeight = newMessage.prev().innerHeight();
-  // console.log(messages);
-  console.log(clientHeight);
-  console.log(scrollTop);
-  console.log(scrollHeight);
-  // if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
-  //   messages.scrollTop(scrollHeight);
-  // }
-    if (clientHeight + scrollTop < scrollHeight) {
-      messages.scrollTop(scrollHeight);
-    }
+
+  if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+    messages.scrollTop(scrollHeight);
+  }
+    // if (clientHeight + scrollTop < scrollHeight) {
+    //   messages.scrollTop(scrollHeight);
+    // }
 }
 
 socket.on('connect', function() {
 
-    console.log('Connected to server.');
+    // console.log('Connected to server.');
+    let params = jQuery.deparam(window.location.search);
 
+    socket.emit('join', params, function (err) {
+        if (err) {
+          alert(err);
+          window.location.href = '/';
+        } else {
+          console.log('No error.');
+        }
+    });
     // socket.emit('createEmail', {
     //     from: 'janna@op.gg',
     //     to: 'noob team'
@@ -39,6 +45,16 @@ socket.on('connect', function() {
 
 socket.on('disconnect', function() {
     console.log('Disonnected from server.');
+});
+
+socket.on('updateUserList', function(users) {
+  console.log('Users list', users);
+  let ol = jQuery('<ol></ol>');
+  users.forEach(function (user) {
+    ol.append(jQuery('<li></li>').text(user));
+  });
+
+  jQuery('#users').html(ol);
 });
 
 // socket.on('newEmail', function(email) {

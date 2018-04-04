@@ -21,4 +21,4 @@ let generateLocationMessage = (from, latitude, longitude) =>  {
 module.exports = {
   generateMessage,
   generateLocationMessage
-}
+};
